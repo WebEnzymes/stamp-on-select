@@ -95,7 +95,7 @@ Example:
             attrs = this.attributes,
             excluded = this._excludedAttributes;
 
-        for (var i=0; i<attrs.length; i++) {
+        for (var i = 0; i < attrs.length; i++) {
           var attr = attrs[i];
           if (!excluded[attr.name]) {
             placeholder.setAttribute(attr.name, attr.value);
@@ -103,7 +103,7 @@ Example:
         }
 
         this._placeholder = placeholder;
-        this._receptorTarget.insertBefore(placeholder, this);
+        this.receptorTarget.insertBefore(placeholder, this);
       },
 
       _teardownPlaceholder: function() {
