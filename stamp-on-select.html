@@ -1,0 +1,165 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../dom-deque/dom-deque.html">
+<link rel="import" href="../receptor-behavior/receptor-behavior.html">
+<link rel="import" href="../import-behavior/import-behavior.html">
+
+<!--
+An element providing a solution to no problem in particular.
+
+Example:
+
+    <seed-element></seed-element>
+
+Example:
+
+    <seed-element>
+      <h2>Hello seed-element</h2>
+    </seed-element>
+
+@demo demo/index.html
+@hero hero.svg
+-->
+
+<dom-module id="stamp-on-select">
+  <script>
+    Polymer({
+      is: 'stamp-on-select',
+      extends: 'template',
+      _template: null,
+
+      properties: {
+        maxSize: {
+          type: Number,
+          value: 1,
+          readOnly: true
+        },
+        restamp: {
+          type: Boolean,
+          observer: '_queueRender'
+        },
+        activateEvent: {
+          type: String,
+          value: 'selected-item-changed'
+        },
+        placeholderTag: {
+          type: String,
+          value: 'div'
+        },
+        _excludedAttributes: {
+          type: Object,
+          value: function () {
+            return {
+              is: true,
+              size: true,
+              restamp: true,
+              activateEvent: true,
+              placeholderTag: true
+            };
+          }
+        }
+
+      },
+
+      behaviors: [
+        DomDeque.DomDequeBehavior,
+        WebEnzymes.ImportBehavior,
+        WebEnzymes.ReceptorBehavior
+      ],
+
+      _queueRender: function() {
+        this._debounceTemplate(function() {
+          if (this.isAttached && this._isSelected && this.restamp) {
+            this._render();
+          }
+        });
+      },
+
+      // Element Lifecycle
+      attached: function() {
+        // NOTE: ideally should not be async, but node can be attached
+        // when shady dom is in the act of distributing/composing so push it out
+        this.async(this._setupPlaceholder);
+      },
+
+      detached: function() {
+        this._teardownPlaceholder();
+      },
+
+      _setupPlaceholder: function() {
+        this._teardownPlaceholder();
+        if (!this.placeholderTag && this._instances.length) {
+          return;
+        }
+
+        var placeholder = this.create(this.placeholderTag),
+            attrs = this.attributes,
+            excluded = this._excludedAttributes;
+
+        for (var i=0; i<attrs.length; i++) {
+          var attr = attrs[i];
+          if (!excluded[attr.name]) {
+            placeholder.setAttribute(attr.name, attr.value);
+          }
+        }
+
+        this._placeholder = placeholder;
+        this._receptorTarget.insertBefore(placeholder, this);
+      },
+
+      _teardownPlaceholder: function() {
+        var placeholder = this._placeholder;
+        if (placeholder) {
+          var parentNode = Polymer.dom(placeholder).parentNode;
+          // Guard against element being detached while render was queued
+          if (parentNode) {
+            var parent = Polymer.dom(parentNode);
+            parent.removeChild(placeholder);
+            this._placeholder = null;
+          }
+        }
+      },
+
+      _activateFilter: function(event) {
+        if (!this._isSelected && event.detail && event.detail.value) {
+          var selectedItem = event.detail.value;
+          var instances = this._instances;
+          return (this._placeholder === selectedItem) ||
+                  (this.restamp && instances.length && instances[0]._children.indexOf(selectedItem) >= 0);
+
+        }
+      },
+
+      _deactivateFilter: function(event) {
+        if (this._isSelected && event.detail && event.detail.value) {
+          var selectedItem = event.detail.value;
+          var instances = this._instances;
+          return (this._placeholder !== selectedItem) &&
+                  (instances.length && instances[0]._children.indexOf(selectedItem) < 0);
+        }
+      },
+
+      _activate: function() {
+        this._isSelected = true;
+        this._render();
+      },
+
+      _deactivate: function() {
+        this._isSelected = false;
+      },
+
+      _render: function() {
+        this._bulkImporter(this._extractImports(this._content || this.content));
+
+        // Switch from placeholder to content
+        // Then, we need to support the animation from the last selected item to this
+        this._teardownPlaceholder();
+        this.pushBack();
+        // FIXME: check behavior instead of duck-typing
+        var target = this._receptor.node;
+        target.forceSynchronousItemUpdate && target.forceSynchronousItemUpdate();
+      }
+
+    });
+
+  </script>
+</dom-module>
