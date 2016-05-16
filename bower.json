@@ -1,29 +1,35 @@
 {
   "name": "stamp-on-select",
+  "description": "...",
+  "license": "MIT",
   "version": "0.1.0",
-  "private": true,
   "main": "stamp-on-select.html",
   "repository": {
     "type": "git",
-    "url": "git://github.com:WebEnzymes/stamp-on-select.git"
+    "url": "git://github.com:webenzymes/stamp-on-select.git"
   },
-  "homepage": "https://github.com/WebEnzymes/stamp-on-select",
-  "ignore": [],
+  "homepage": "https://github.com/webenzymes/stamp-on-select",
   "dependencies": {
+    "polymer": "polymer/polymer#^1.0.0",
     "dom-deque": "leogr/dom-deque#develop",
     "import-behavior": "webenzymes/import-behavior#develop",
-    "receptor-behavior": "webenzymes/receptor-behavior#develop",
-    "polymer": "Polymer/polymer#^1.0.0"
+    "receptor-behavior": "webenzymes/receptor-behavior#develop"
   },
   "devDependencies": {
     "iron-component-page": "polymerelements/iron-component-page#^1.0.0",
-    "iron-demo-helpers": "PolymerElements/iron-demo-helpers#^1.2.0",
+    "iron-demo-helpers": "polymerelements/iron-demo-helpers#^1.2.0",
     "iron-test-helpers": "polymerelements/iron-test-helpers#^1.0.0",
     "paper-styles": "polymerelements/paper-styles#^1.0.0",
     "test-fixture": "polymerelements/test-fixture#^1.0.0",
     "web-component-tester": "^4.0.0",
-    "webcomponentsjs": "webcomponents/webcomponentsjs#^0.7.0",
-    "neon-animation": "PolymerElements/neon-animation#^1.2.2",
-    "iron-flex-layout": "PolymerElements/iron-flex-layout#^1.0.0"
-  }
+    "neon-animation": "polymerelements/neon-animation#^1.2.2",
+    "iron-flex-layout": "polymerelements/iron-flex-layout#^1.0.0"
+  },
+  "ignore": [
+   "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
 }
