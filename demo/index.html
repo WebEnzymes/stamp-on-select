@@ -61,7 +61,6 @@
       <button on-click="_onDownClick">&#8681;</button>
     </div>
 
-
     <neon-animated-pages id="pages" selected="[[selected]]" entry-animation="[[entryAnimation]]" exit-animation="[[exitAnimation]]">
       <neon-animatable class="na-1">Not Lazy</neon-animatable>
       <template is="stamp-on-select" placeholder-tag="neon-animatable" class="na-2">
@@ -70,14 +69,9 @@
         </neon-animatable>
       </template>
 
-
-      <template is="stamp-on-select"
-                placeholder-tag="neon-animatable"
-                class="na-3"
-                restamp
-      >
+      <template is="stamp-on-select" placeholder-tag="neon-animatable" class="na-3" restamp>
         <neon-animatable class="na-3">
-          Lazy, restamp
+          Lazy (w/ restamp)
         </neon-animatable>
       </template>
 
@@ -85,12 +79,12 @@
         <neon-animatable class="na-4">
             <link rel="import" href="import/x-demo-foo.html">
             <div>
-              <x-demo-foo><i>lazy imported</i></x-demo-foo>
+              <x-demo-foo><center><sub>I was lazily imported.</sub></center></x-demo-foo>
             </div>
         </neon-animatable>
       </template>
 
-      <neon-animatable class="na-5">Another not lazy page</neon-animatable>
+      <neon-animatable class="na-5">Another non-lazy page</neon-animatable>
     </neon-animated-pages>
 
   </template>
