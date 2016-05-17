@@ -3,15 +3,14 @@
   "version": "0.0.1",
   "description": "...",
   "main": "stamp-on-select.html",
-  "scripts": {
-    "lint": "polylint -b bower_components/ --no-recursion --input stamp-on-select.html",
-    "serve": "polyserve"
-  },
   "repository": "webenzymes/stamp-on-select",
   "keywords": [
     "web-components",
+    "web-enzymes",
     "polymer",
-    "web-enzymes"
+    "template",
+    "dom",
+    "type extension"
   ],
   "license": "MIT",
   "bugs": {
@@ -34,5 +33,12 @@
     "polyserve": "0.10.x",
     "validate-commit": "2.1.x",
     "web-component-tester": "4.2.x"
+  },
+  "scripts": {
+    "lint": "polylint -b bower_components/ --no-recursion --input stamp-on-select.html",
+    "serve": "polyserve",
+    "docs": "npm run serve -- -o index.html",
+    "demo": "npm run serve -- -o demo/index.html",
+    "test": "npm run serve -- -o test/index.html"
   }
 }

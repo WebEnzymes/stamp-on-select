@@ -21,9 +21,9 @@
     "iron-test-helpers": "polymerelements/iron-test-helpers#^1.0.0",
     "paper-styles": "polymerelements/paper-styles#^1.0.0",
     "test-fixture": "polymerelements/test-fixture#^1.0.0",
-    "web-component-tester": "^4.0.0",
     "neon-animation": "polymerelements/neon-animation#^1.2.2",
-    "iron-flex-layout": "polymerelements/iron-flex-layout#^1.0.0"
+    "iron-flex-layout": "polymerelements/iron-flex-layout#^1.0.0",
+    "web-component-tester": "^4.2.2"
   },
   "ignore": [
    "**/.*",
@@ -31,5 +31,13 @@
     "bower_components",
     "test",
     "tests"
+  ],
+  "keywords": [
+    "web-components",
+    "web-enzymes",
+    "polymer",
+    "template",
+    "dom",
+    "type extension"
   ]
 }
