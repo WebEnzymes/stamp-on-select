@@ -1,0 +1,41 @@
+{
+  "name": "receptor-behavior",
+  "version": "0.0.1",
+  "description": "...",
+  "main": "receptor-behavior.html",
+  "repository": "webenzymes/receptor-behavior",
+  "keywords": [
+    "web-components",
+    "receptor",
+    "events",
+    "polymer",
+    "behavior",
+    "web-enzymes"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/webenzymes/receptor-behavior/issues"
+  },
+  "homepage": "https://github.com/webenzymes/receptor-behavior#readme",
+  "progress": false,
+  "loglevel": "silent",
+  "depth": 0,
+  "git": {
+    "scripts": {
+      "commit-msg": "./node_modules/.bin/validate-commit-msg --preset eslint $1"
+    }
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "bower": "1.7.x",
+    "git-scripts": "0.2.x",
+    "napa": "^2.3.0",
+    "polylint": "^2.10.1",
+    "polyserve": "0.10.x",
+    "validate-commit": "2.1.x",
+    "web-component-tester": "4.2.x"
+  },
+  "scripts": {
+    "lint": "polylint -b bower_components/ --no-recursion --input receptor-behavior.html"
+  }
+}

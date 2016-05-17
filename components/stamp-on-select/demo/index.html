@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+    <title>web enzymes - stamp on select demo</title>
+    <script src="../../webcomponentsjs/webcomponents-lite.min.js"></script>
+    <link rel="import" href="../../iron-flex-layout/iron-flex-layout.html">
+    <link rel="import" href="../../paper-styles/typography.html">
+    <link rel="import" href="../../paper-styles/color.html">
+    <link rel="import" href="../../neon-animation/neon-animated-pages.html">
+    <link rel="import" href="../../neon-animation/neon-animatable.html">
+    <link rel="import" href="../../neon-animation/neon-animations.html">
+    <link rel="import" href="../stamp-on-select.html">
+
+    <style is="custom-style">
+      body {
+        overflow: hidden;
+        @apply(--layout-fullbleed);
+        @apply(--layout-vertical);
+      }
+      .toolbar {
+        position: relative;
+        padding: 8px;
+        background-color: white;
+        z-index: 12;
+      }
+      neon-animated-pages {
+        @apply(--layout-flex);
+      }
+      neon-animatable, neon-animated-pages div {
+        color: white;
+        @apply(--layout-horizontal);
+        @apply(--layout-center-center);
+        @apply(--paper-font-display4);
+      }
+      .na-1 {
+        background: var(--paper-red-500);
+      }
+      .na-2 {
+        background: var(--paper-blue-500);
+      }
+      .na-3 {
+        background: var(--paper-orange-500);
+      }
+      .na-4 {
+        background: var(--paper-green-500);
+      }
+      .na-5 {
+        background: var(--paper-purple-500);
+      }
+    </style>
+  </head>
+  <body unresolved>
+  <template is="dom-bind">
+
+    <div class="toolbar">
+      <button on-click="_onPrevClick">&#8678;</button>
+      <button on-click="_onNextClick">&#8680;</button>
+      <button on-click="_onUpClick">&#8679;</button>
+      <button on-click="_onDownClick">&#8681;</button>
+    </div>
+
+    <neon-animated-pages id="pages" selected="[[selected]]" entry-animation="[[entryAnimation]]" exit-animation="[[exitAnimation]]">
+      <neon-animatable class="na-1">Not Lazy</neon-animatable>
+      <template is="stamp-on-select" placeholder-tag="neon-animatable" class="na-2">
+        <neon-animatable class="na-2">
+          Lazy
+        </neon-animatable>
+      </template>
+
+      <template is="stamp-on-select" placeholder-tag="neon-animatable" class="na-3" restamp>
+        <neon-animatable class="na-3">
+          Lazy (w/ restamp)
+        </neon-animatable>
+      </template>
+
+      <template is="stamp-on-select" placeholder-tag="neon-animatable" class="na-4">
+        <neon-animatable class="na-4">
+            <link rel="import" href="import/x-demo-foo.html">
+            <div>
+              <x-demo-foo><center><sub>I was lazily imported.</sub></center></x-demo-foo>
+            </div>
+        </neon-animatable>
+      </template>
+
+      <neon-animatable class="na-5">Another non-lazy page</neon-animatable>
+    </neon-animated-pages>
+
+  </template>
+
+    <script>
+      var scope = document.querySelector('template[is="dom-bind"]');
+      scope.selected = 0;
+      scope._onPrevClick = function() {
+        this.entryAnimation = 'slide-from-left-animation';
+        this.exitAnimation = 'slide-right-animation';
+        this.selected = this.selected === 0 ? 4 : (this.selected - 1);
+      }
+      scope._onNextClick = function() {
+        this.entryAnimation = 'slide-from-right-animation';
+        this.exitAnimation = 'slide-left-animation';
+        this.selected = this.selected === 4 ? 0 : (this.selected + 1);
+      }
+      scope._onUpClick = function() {
+        this.entryAnimation = 'slide-from-top-animation';
+        this.exitAnimation = 'slide-down-animation';
+        this.selected = this.selected === 4 ? 0 : (this.selected + 1);
+      }
+      scope._onDownClick = function() {
+        this.entryAnimation = 'slide-from-bottom-animation';
+        this.exitAnimation = 'slide-up-animation';
+        this.selected = this.selected === 0 ? 4 : (this.selected - 1);
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,79 @@
+<link rel="import" href="../polymer/polymer.html">
+<script>
+  'use strict';
+
+  var WebEnzymes = WebEnzymes || {};
+
+  WebEnzymes.ReceptorBehavior = {
+
+    properties: {
+      activateEvent: {
+        type: String,
+        observer: '_setupReceptor'
+      }
+    },
+
+    attached: function() {
+      this._setupReceptor();
+    },
+
+    detached: function() {
+      this._teardownReceptor();
+    },
+
+    get receptorTarget() {
+      var parentNode = Polymer.dom(this).parentNode;
+      // Guard against element being detached while render was queued
+      if (parentNode) {
+        return Polymer.dom(parentNode);
+      }
+    },
+
+    _setupReceptor: function() {
+      if (!this.isAttached) {
+        return;
+      }
+      this._teardownReceptor();
+      var el = this.receptorTarget;
+      if (this.activateEvent && el) {
+        var receptor = {
+          eventName: this.activateEvent,
+          node: el.node
+        };
+        this.listen(receptor.node, receptor.eventName, '_handleReceptorEvent');
+        this._receptor = receptor;
+      }
+    },
+
+    _teardownReceptor: function() {
+      if (this._receptor) {
+        var receptor = this._receptor;
+        this.unlisten(receptor.node, receptor.eventName, '_handleReceptorEvent');
+        this._receptor = null;
+      }
+    },
+
+    _handleReceptorEvent: function(event) {
+      if (this._activateFilter(event)) {
+        this._activate(event);
+      } else if (this._deactivateFilter(event)) {
+        this._deactivate(event);
+      }
+    },
+
+    // Extension point for sub-classes with default behaviour
+    _activateFilter: function(event) {
+      return event.detail && event.detail.value && event.detail.value === this;
+    },
+
+    // Extension point for sub-classes with default behaviour
+    _deactivateFilter: function(event) {
+      return event.detail && event.detail.value && event.detail.value !== this;
+    },
+
+    // Extension points for sub-classes
+    _activate: function() {},
+    _deactivate: function() {}
+
+  };
+</script>

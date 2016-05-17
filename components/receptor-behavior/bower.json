@@ -1,0 +1,25 @@
+{
+  "name": "receptor-behavior",
+  "description": "...",
+  "main": "receptor-behavior.html",
+  "license": "MIT",
+  "keywords": [
+    "web-components",
+    "receptor",
+    "events",
+    "polymer",
+    "behavior",
+    "web-enzymes"
+  ],
+  "dependencies": {
+    "polymer": "polymer/polymer#^1.0.0"
+  },
+  "homepage": "https://github.com/webenzymes/receptor-behavior",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

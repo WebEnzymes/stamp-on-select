@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>web enzymes - receptor behavior demo</title>
+
+    <link rel="import" href="../receptor-behavior.html">
+
+    <style></style>
+  </head>
+  <body>
+    <x-receptor></x-receptor>
+    <dom-module id="x-receptor">
+      <template>
+        <style></style>
+      </template>
+
+      <script>
+      window.addEventListener('WebComponentsReady', function() {
+        Polymer({
+          is: 'x-receptor',
+          properties: {},
+          behaviors: [
+            WebEnzymes.ReceptorBehavior
+          ]
+        });
+      });
+      </script>
+    </dom-module>
+  </body>
+</html>
